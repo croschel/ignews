@@ -33,7 +33,7 @@
         font-weight: bold;
       }
 
-      &:active::after {
+      &.active::after {
         content: "";
         height: 3px;
         border-radius: 3px 3px 0 0;
@@ -44,5 +44,9 @@
         background-color: var(--yellow-500);
       }
     }
+  }
+
+  > button {
+    margin-left: auto;
   }
 }
