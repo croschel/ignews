@@ -1,0 +1,23 @@
+CMS (Content Management System)
+
+- Wordpress
+x Drupal
+x Joomla
+x Magento (E-commerce)
+
+Headless CMS (Painel de Adm + API HTTP, GraphQL, SDK)
+
+Free
+
+- Strapi (warning has some bug)
+- Ghost (Blog)
+- Keystone
+
+Pay to use
+
+- GraphCMS
+- Prismic CMS - better price
+- Contentful - Awesome Bussiness
+
+- Shopify
+- Saleor
