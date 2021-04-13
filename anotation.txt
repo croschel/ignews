@@ -21,3 +21,9 @@ Pay to use
 
 - Shopify
 - Saleor
+
+########################################################
+
+IMPORTANT POINTS
+
+- every page rendered with static site generation don`t have any security

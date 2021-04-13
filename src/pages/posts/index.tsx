@@ -1,7 +1,30 @@
+import { GetStaticProps } from "next";
+import Prismic from "@prismicio/client";
 import Head from "next/head";
+import { getPrismicClient } from "../../services/prismic";
 import styles from "./styles.module.scss";
+import { RichText } from "prismic-dom";
+import Link from "next/link";
 
-export default function posts() {
+type Post = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  updatedAt: string;
+};
+
+interface PostProps {
+  posts: Post[];
+}
+
+interface PrismicContentData {
+  type: string;
+  text: string;
+}
+
+export default function posts({ posts }: PostProps) {
+  console.log(JSON.stringify(posts));
+
   return (
     <>
       <Head>
@@ -9,35 +32,50 @@ export default function posts() {
       </Head>
       <main className={styles.container}>
         <div className={styles.posts}>
-          <a href="#">
-            <time>12 de março de 2021</time>
-            <strong>creating something like this</strong>
-            <p>
-              lorem ipsum enum lorem ipsum enumlorem ipsum enumlorem ipsum
-              enumlorem ipsum enumlorem ipsum enumlorem ipsum enumlorem ipsum
-              enumlorem ipsum enumlorem ipsum enum
-            </p>
-          </a>
-          <a href="#">
-            <time>12 de março de 2021</time>
-            <strong>creating something like this</strong>
-            <p>
-              lorem ipsum enum lorem ipsum enumlorem ipsum enumlorem ipsum
-              enumlorem ipsum enumlorem ipsum enumlorem ipsum enumlorem ipsum
-              enumlorem ipsum enumlorem ipsum enum
-            </p>
-          </a>
-          <a href="#">
-            <time>12 de março de 2021</time>
-            <strong>creating something like this</strong>
-            <p>
-              lorem ipsum enum lorem ipsum enumlorem ipsum enumlorem ipsum
-              enumlorem ipsum enumlorem ipsum enumlorem ipsum enumlorem ipsum
-              enumlorem ipsum enumlorem ipsum enum
-            </p>
-          </a>
+          {posts.map((post) => (
+            <Link key={post.slug} href={`/posts/${post.slug}`}>
+              <a>
+                <time>{post.updatedAt}</time>
+                <strong>{post.title}</strong>
+                <p>{post.excerpt}</p>
+              </a>
+            </Link>
+          ))}
         </div>
       </main>
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const prismic = getPrismicClient();
+  const response = await prismic.query(
+    [Prismic.predicates.at("document.type", "post")],
+    {
+      fetch: ["post.title", "post.content"],
+      pageSize: 100,
+    }
+  );
+
+  const posts = response.results.map((post) => {
+    return {
+      slug: post.uid,
+      title: RichText.asText(post.data.title),
+      excerpt:
+        post.data.content.find(
+          (content: PrismicContentData) => content.type === "paragraph"
+        )?.text ?? "",
+      updatedAt: new Date(post.last_publication_date).toLocaleDateString(
+        "pt-BR",
+        {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }
+      ),
+    };
+  });
+  return {
+    props: { posts },
+  };
+};
