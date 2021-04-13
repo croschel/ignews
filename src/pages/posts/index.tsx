@@ -23,7 +23,7 @@ interface PrismicContentData {
 }
 
 export default function posts({ posts }: PostProps) {
-  console.log(JSON.stringify(posts));
+  // console.log(JSON.stringify(posts));
 
   return (
     <>
