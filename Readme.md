@@ -1,7 +1,8 @@
 <p align="center">
   <img width="260" height="100" src="./public/images/avatar.svg">
-  <img width="200" height="50" src="./public/images/logo.svg">
 </p>
+<p align="center">
+<img width="200" height="50" src="./public/images/logo.svg"></p>
 <p align="center">
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/croschel/ignews">
 
