@@ -51,7 +51,7 @@ In the project directory, you can run:
 
 ### `stripe listen --forward-to localhost:3000/api/webhooks`
 
-- if you want to follow stripe changes you can install globaly stripe-cli and execute this script.
+- if you want to follow stripe changes you can install globaly stripe-cli, execute `stripe login` and execute this script.
 
 ### Run Correctly with stripe
 
