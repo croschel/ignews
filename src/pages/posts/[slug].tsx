@@ -40,6 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const session = await getSession({ req });
   const { slug } = params;
+  // @ts-ignore
   if (!session?.activeSubscription) {
     return {
       redirect: {
