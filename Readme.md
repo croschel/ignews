@@ -49,6 +49,10 @@ In the project directory, you can run:
 
 - Builds the app for production to the `build` folder.
 
+### `stripe listen --forward-to localhost:3000/api/webhooks`
+
+- if you want to follow stripe changes you can install globaly stripe-cli and execute this script.
+
 ### Run Correctly with stripe
 
 don`t forget to set environment variables like .env.example
